@@ -8,28 +8,29 @@ def home(request):
     return render(request,"home.html")
 
 def list(request):
-    return render(request,"list.html")
+    books = models.Book.objects.all()
+    return render(request,"list.html",{"books":books})
 
 def search(request):
-    print("in search")
+    books = []
     if request.method == "POST":        
         print("POST")
         form = forms.SearchForm(request.POST)
         if form.is_valid():
-            print("spojka:" + form.cleaned_data["spojka"] + "\n")
-            print("name:" + form.cleaned_data["name"] + "\n")
-            print("authors:" + form.cleaned_data["authors"] + "\n")
-            print("publisher:" + form.cleaned_data["publisher"] + "\n")
-            print("location:" + form.cleaned_data["location"] + "\n")
-            print("pubYear:" + str(form.cleaned_data["pubYear"]) + "\n")
-            models.BookRep().find(form.cleaned_data["spojka"],form.cleaned_data["name"],form.cleaned_data["authors"],
+            #print("spojka:" + form.cleaned_data["spojka"] + "\n")
+            #print("name:" + form.cleaned_data["name"] + "\n")
+            #print("authors:" + form.cleaned_data["authors"] + "\n")
+            #print("publisher:" + form.cleaned_data["publisher"] + "\n")
+            #print("location:" + form.cleaned_data["location"] + "\n")
+            #print("pubYear:" + str(form.cleaned_data["pubYear"]) + "\n")
+            books = models.BookRep().find(form.cleaned_data["spojka"],form.cleaned_data["name"],form.cleaned_data["authors"],
                              form.cleaned_data["publisher"],form.cleaned_data["location"],
                              form.cleaned_data["pubYear"])
     else:        
-        print("GET")
+        #print("GET")
         form = forms.SearchForm()
         
-    return render(request,"advSearch.html",{"form":form})    
+    return render(request,"advSearch.html",{"form":form,"books":books})    
 
 def keysearch(request):
     return render(request,"keySearch.html")

@@ -43,22 +43,18 @@ class BookRep:
         if pubYear != None:
             q5 = Q(pubYear__iexact=int(pubYear))
             
-        first = None
+        q = Q()
         for qx in [q1,q2,q3,q4,q5]:
-            if first == None:
-                if qx != None:
-                    first = qx
-            else:
-                if qx != None:
-                    if spojka == "AND":
-                        first = first & qx
-                    else:
-                        first = first | qx
-                    
-        print(first)
+            if qx != None:
+                if spojka == "AND":
+                    q = q & qx
+                else:
+                    q = q | qx
+
+        print(q)        
         result = []
         try:
-            result = Book.objects.filter(first)
+            result = Book.objects.filter(q)
         except:
             pass
         print(len(result))
