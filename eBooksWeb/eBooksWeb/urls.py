@@ -9,7 +9,7 @@ site_media = os.path.join(os.path.dirname(__file__),
 urlpatterns = patterns('',    
     #session management
     url(r"^login/$","django.contrib.auth.views.login",name="login"),
-    url(r"^logout/$",'django.contrib.auth.views.logout',name="logout"),                       
+    url(r"^logout/$",'books.views.logout',name="logout"),                       
     # books app
     url(r'^$', 'books.views.home', name='home'),
     url(r'^home/$', 'books.views.home', name='home'),
