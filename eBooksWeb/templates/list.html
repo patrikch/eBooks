@@ -1,5 +1,8 @@
 {% extends "base.html" %}
 {% block title %}Books list{% endblock %}
+{% block external %}
+<script type="text/javascript" src="/site_media/list.js"></script>
+{% endblock %}
 {% block head %}Books list{% endblock %}
 {% block content %}
 <br/>
@@ -16,5 +19,6 @@
 {% endif %}
 (Page {{ page }} of {{ pages }})
 </div>
+<input type="hidden" id="id_sort"/>
 {% endif %}
 {% endblock %}

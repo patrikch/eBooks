@@ -12,7 +12,20 @@ def home(request):
     return render(request,"home.html")
 
 def list(request):
-    allbooks = models.Book.objects.all()
+    sortExpr = None
+    if "sort" in request.GET:
+        sortParam = request.GET["sort"]
+        print("sort:" + sortParam)
+        sortParam = sortParam.replace("Plus","+")
+        sortParam = sortParam.replace("Minus","-")
+        sortExpr = models.BookRep().sort(sortParam)
+        print("sortExpr:" + sortExpr)
+        
+    if sortExpr == None:
+        allbooks = models.Book.objects.all()
+    else:
+        allbooks = models.Book.objects.all().order_by(sortExpr)
+    
     paginator = Paginator(allbooks,ITEMS_PER_PAGE)
     try:
         page_number = int(request.GET["page"])

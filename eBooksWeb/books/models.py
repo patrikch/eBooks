@@ -52,7 +52,7 @@ class BookRep:
                     q = q | qx
 
         print(q)
-        sortExpr = self._sort(sort)
+        sortExpr = self.sort(sort)
         print(sortExpr)
         result = []
         try:
@@ -65,7 +65,8 @@ class BookRep:
         print(len(result))
         return result
 
-    def _sort(self,sort):
+    def sort(self,sort):
+        print("sort from model:" + sort)
         #Neni sortovaci vyraz
         if sort == None or len(sort) == 0:
             return None
