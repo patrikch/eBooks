@@ -9,7 +9,7 @@ SPOJKA_CHOICES = (
 def get_locations():
         lst = []
         for l in models.Location.objects.all():
-            lst.append((l.dvd,l.id))
+            lst.append((l.id,l.dvd))
         return lst
 
 class SearchForm(forms.Form):
@@ -20,6 +20,7 @@ class SearchForm(forms.Form):
     publisher = forms.CharField(label="Publisher",max_length=50,required=False)
     location = forms.ChoiceField(label="Location",choices=get_locations(),required=False)
     pubYear = forms.IntegerField(label="Pub.year",required=False)
+    sort = forms.CharField(widget=forms.HiddenInput,required=False)
     
 
     

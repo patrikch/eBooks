@@ -29,7 +29,7 @@ class Book(models.Model):
 
 class BookRep:
     def find(self,spojka=None,name=None,authors=None,publisher=None,location=None,
-         pubYear=None):
+         pubYear=None,sort=None):
 
         q1,q2,q3,q4,q5 = None,None,None,None,None
         if name != None and len(name) > 0:
@@ -51,15 +51,37 @@ class BookRep:
                 else:
                     q = q | qx
 
-        print(q)        
+        print(q)
+        sortExpr = self._sort(sort)
+        print(sortExpr)
         result = []
         try:
-            result = Book.objects.filter(q)
+            if sortExpr == None:
+                result = Book.objects.filter(q)
+            else:
+                result = Book.objects.filter(q).order_by(sortExpr)
         except:
             pass
         print(len(result))
         return result
-    
+
+    def _sort(self,sort):
+        #Neni sortovaci vyraz
+        if sort == None or len(sort) == 0:
+            return None
+        
+        tmp = sort.lower()
+        prefix = ""
+        #nedava se +name,ale jen name anebo -name
+        if sort.startswith("+") or sort.startswith("-"):
+            tmp = sort[1:].lower()
+            if sort.startswith("-"):
+                prefix = sort[0:1]
+        #v sort vyrazu neni povoleny sloupec
+        if tmp not in ("name","authors","publisher","format","pubyear","location"):
+            return None
+
+        return prefix + tmp 
 
 
         

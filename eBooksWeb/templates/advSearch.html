@@ -1,11 +1,14 @@
 {% extends "base.html" %}
 {% block title %}Search{% endblock %}
+{% block external %}
+<script type="text/javascript" src="/site_media/search.js"></script>
+{% endblock %}
 {% block head %}Search in catalog{% endblock %}
 {% block content %}
 <form method="post" action=".">
 {% csrf_token %}
 {{ form.as_table }}
-<input type="submit" value="Search" />
+<input type="submit" id="btnSearch" value="Search" />
 </form>
 <br/>
 <br/>

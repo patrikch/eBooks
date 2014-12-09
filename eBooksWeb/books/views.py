@@ -4,7 +4,7 @@ from books import forms
 from books import models
 from django.db.models import Q
 from django.core.paginator import Paginator, InvalidPage
-from django.contrib.auth.views import logout
+from django.contrib.auth import logout
 
 ITEMS_PER_PAGE = 5
 
@@ -48,9 +48,17 @@ def search(request):
             #print("publisher:" + form.cleaned_data["publisher"] + "\n")
             #print("location:" + form.cleaned_data["location"] + "\n")
             #print("pubYear:" + str(form.cleaned_data["pubYear"]) + "\n")
-            books = models.BookRep().find(form.cleaned_data["spojka"],form.cleaned_data["name"],form.cleaned_data["authors"],
+            #sort = request.POST["txtsort"]
+            sort = form.cleaned_data["sort"]
+            print("sort:" + sort)
+            #for key in request.POST:
+            #    value = request.POST[key]
+            #    print(key + ":" + value)
+                
+            bookRep = models.BookRep()
+            books = bookRep.find(form.cleaned_data["spojka"],form.cleaned_data["name"],form.cleaned_data["authors"],
                              form.cleaned_data["publisher"],form.cleaned_data["location"],
-                             form.cleaned_data["pubYear"])
+                             form.cleaned_data["pubYear"],sort)            
     else:        
         #print("GET")
         form = forms.SearchForm()
