@@ -67,7 +67,7 @@ def search(request):
             #for key in request.POST:
             #    value = request.POST[key]
             #    print(key + ":" + value)
-                
+            #print("location:" + form.cleaned_data["location"] + "\n")    
             bookRep = models.BookRep()
             books = bookRep.find(form.cleaned_data["spojka"],form.cleaned_data["name"],form.cleaned_data["authors"],
                              form.cleaned_data["publisher"],form.cleaned_data["location"],

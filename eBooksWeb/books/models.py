@@ -38,8 +38,8 @@ class BookRep:
             q2 = Q(authors__icontains=authors)
         if publisher != None and len(publisher) > 0:
             q3 = Q(publisher__icontains=publisher)
-        #if location != None:
-        #    q4 = Q(location__icontains=location)
+        if location != None:
+            q4 = Q(location__id__iexact=location)
         if pubYear != None:
             q5 = Q(pubYear__iexact=int(pubYear))
             
@@ -65,8 +65,7 @@ class BookRep:
         print(len(result))
         return result
 
-    def sort(self,sort):
-        print("sort from model:" + sort)
+    def sort(self,sort):        
         #Neni sortovaci vyraz
         if sort == None or len(sort) == 0:
             return None
@@ -78,9 +77,14 @@ class BookRep:
             tmp = sort[1:].lower()
             if sort.startswith("-"):
                 prefix = sort[0:1]
-        #v sort vyrazu neni povoleny sloupec
+        #v sort vyrazu neni povoleny sloupec        
         if tmp not in ("name","authors","publisher","format","pubyear","location"):
             return None
+
+        if tmp == "location":
+            tmp = "location__dvd"
+        if tmp == "pubyear":
+            tmp = "pubYear"
 
         return prefix + tmp 
 
