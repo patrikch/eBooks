@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+
 {% block title %}Books list{% endblock %}
 {% block external %}
 <script type="text/javascript" src="/site_media/list.js"></script>
@@ -12,10 +13,10 @@
 {% if show_paginator %}
 <div class="paginator">
 {% if has_prev %}
-<a href="?page={{ prev_page }}">&laquo; Previous</a>
+<a id="prevPage" href="?page={{ prev_page }}">&laquo; Previous</a>
 {% endif %}
 {% if has_next %}
-<a href="?page={{ next_page }}">Next &raquo;</a>
+<a id="nextPage" href="?page={{ next_page }}">Next &raquo;</a>
 {% endif %}
 (Page {{ page }} of {{ pages }})
 </div>
