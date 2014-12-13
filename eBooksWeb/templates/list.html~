@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Books list{% endblock %}
+{% block external %}
+<script type="text/javascript" src="/site_media/list.js"></script>
+{% endblock %}
+{% block head %}Books list{% endblock %}
+{% block content %}
+<br/>
+<br/>
+{% include "books.html" %}
+<br/><br/>
+{% if show_paginator %}
+<div class="paginator">
+{% if has_prev %}
+<a href="?page={{ prev_page }}">&laquo; Previous</a>
+{% endif %}
+{% if has_next %}
+<a href="?page={{ next_page }}">Next &raquo;</a>
+{% endif %}
+(Page {{ page }} of {{ pages }})
+</div>
+<input type="hidden" id="id_sort"/>
+{% endif %}
+{% endblock %}
